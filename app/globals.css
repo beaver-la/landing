@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --primary: 162 100% 15%; /* #004D40 */
+    --primary-foreground: 210 40% 98%;
+    --secondary: 162 43% 96%; /* Light green background */
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 162 73% 46%; /* Accent green */
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 162 100% 15%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.bg-gradient-primary {
+  background: linear-gradient(135deg, #004d40 0%, #00796b 100%);
+}
+
+.bg-gradient-secondary {
+  background: linear-gradient(135deg, #00897b 0%, #009688 100%);
+}
+
+.nav-link {
+  @apply text-gray-600 hover:text-primary transition-colors;
+}
+
+.nav-button {
+  @apply px-4 py-2 rounded-md transition-colors;
+}
+
+.nav-button-primary {
+  @apply bg-primary text-white hover:bg-primary/90;
+}
+
+.nav-button-secondary {
+  @apply bg-gray-200 text-gray-600 hover:bg-gray-300;
+}
+
