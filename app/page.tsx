@@ -2,13 +2,9 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { useState } from "react"
-import { Menu } from "lucide-react"
 import WhatsAppButton from "./components/WhatsAppButton"
 
 export default function Home() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-
   return (
     <div className="min-h-screen bg-[#F5F5F5]">
       {/* Navigation */}
@@ -16,19 +12,21 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
-              <Image
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Beaver_negativo_color-jJLxc6ATQcL0sviICXdVT1baWLyNk0.png"
-                alt="Beaver Logo"
-                width={48}
-                height={48}
-                className="rounded-full"
-              />
+              <Link href="/">
+                <Image
+                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Beaver_positivo_color-a02GIsj5SqKONhZEblyIhVvh3Ws07z.png"
+                  alt="Beaver Logo"
+                  width={82}
+                  height={82}
+                  className="h-20 w-auto"
+                />
+              </Link>
             </div>
             <div className="hidden md:flex items-center space-x-8">
               <Link href="/" className="nav-link">
                 Inicio
               </Link>
-              <Link href="#como-funciona" className="nav-link">
+              <Link href="/como-funciona" className="nav-link">
                 Cómo funciona
               </Link>
               <Link href="/proyectos" className="nav-link">
@@ -38,13 +36,8 @@ export default function Home() {
                 Iniciar sesión
               </Link>
               <Link href="/registro" className="nav-button nav-button-secondary">
-                Registrate
+                Registrarme
               </Link>
-            </div>
-            <div className="md:hidden flex items-center">
-              <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-                <Menu className="h-6 w-6 text-primary" />
-              </button>
             </div>
           </div>
         </div>
@@ -127,9 +120,7 @@ export default function Home() {
                   <p className="text-gray-600">
                     Préstamos al promotor del proyecto
                     <br />
-                    <span className="block mt-2 text-sm">
-                      Plazo: variable
-                    </span>
+                    <span className="block mt-2 text-sm">Plazo: variable</span>
                   </p>
                 </div>
               </div>
@@ -150,23 +141,17 @@ export default function Home() {
             <div className="lg:col-span-8">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                 <div className="text-center">
-                  <div className="bg-white rounded-lg p-6 mb-6 inline-block">
-                    <span className="text-4xl font-bold text-primary">1</span>
-                  </div>
+                  <span className="text-4xl font-bold text-white mb-6 block">1.</span>
                   <h3 className="text-xl font-bold mb-4">Creá tu cuenta</h3>
                   <p>Registrate en tan solo 3 minutos.</p>
                 </div>
                 <div className="text-center">
-                  <div className="bg-white rounded-lg p-6 mb-6 inline-block">
-                    <span className="text-4xl font-bold text-primary">2</span>
-                  </div>
+                  <span className="text-4xl font-bold text-white mb-6 block">2.</span>
                   <h3 className="text-xl font-bold mb-4">Descubrí el proyecto</h3>
                   <p>Explorá nuestras oportunidades.</p>
                 </div>
                 <div className="text-center">
-                  <div className="bg-white rounded-lg p-6 mb-6 inline-block">
-                    <span className="text-4xl font-bold text-primary">3</span>
-                  </div>
+                  <span className="text-4xl font-bold text-white mb-6 block">3.</span>
                   <h3 className="text-xl font-bold mb-4">Empezá a operar</h3>
                   <p>¡Con una simple transferencia, ya serás parte de un proyecto!</p>
                 </div>

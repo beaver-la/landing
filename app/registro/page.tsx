@@ -1,11 +1,12 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import Link from "next/link"
-import { Eye } from "lucide-react"
+import Image from "next/image"
+import { Eye, EyeOff } from "lucide-react"
 import WhatsAppButton from "../components/WhatsAppButton"
+import MobileMenu from "@/components/MobileMenu"
 
 const countries = [
   { code: "54", name: "Argentina" },
@@ -17,7 +18,6 @@ const countries = [
   { code: "51", name: "Perú" },
   { code: "598", name: "Uruguay" },
   { code: "58", name: "Venezuela" },
-  // Add more countries as needed
 ]
 
 export default function RegisterPage() {
@@ -29,23 +29,49 @@ export default function RegisterPage() {
     // Handle form submission
   }
 
-  const handlePhoneInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Only allow numbers
-    const value = e.target.value.replace(/[^0-9]/g, "")
-    e.target.value = value
-  }
-
   return (
-    <div className="min-h-screen bg-white py-16 px-4 sm:px-6 lg:px-8 flex justify-center items-center">
-      <div className="max-w-4xl mx-auto w-full">
-        <div className="flex flex-col items-center justify-center">
-          {/* Form */}
-          <div className="w-full max-w-2xl">
-            <h1 className="text-3xl font-bold text-primary mb-8 text-center">
-              Iniciemos tu proceso para registrarte como usuario!
-            </h1>
+    <div className="min-h-screen relative">
+      {/* Background Image */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage:
+            "url(https://hebbkx1anhila5yf.public.blob.vercel-storage.com/fondoverde3.jpg-Tk2WCxyiDYpc8PrEAcRiuDjs77vsII.jpeg)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      />
 
-            <form onSubmit={handleSubmit} className="space-y-6 bg-white p-8 rounded-lg shadow-md w-full">
+      {/* Navigation */}
+      <nav className="relative z-10 bg-white/95 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-16">
+            <div className="flex items-center">
+              <Link href="/">
+                <Image
+                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Beaver_positivo_color-a02GIsj5SqKONhZEblyIhVvh3Ws07z.png"
+                  alt="Beaver Logo"
+                  width={82}
+                  height={82}
+                  className="h-20 w-auto"
+                />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Registration Form */}
+      <div className="relative z-10 flex min-h-[calc(100vh-4rem)] items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-2xl">
+          <div className="bg-white/95 backdrop-blur-sm rounded-lg shadow-xl p-8">
+            <div className="sm:mx-auto sm:w-full sm:max-w-md">
+              <h2 className="text-center text-3xl font-bold tracking-tight text-primary mb-6">
+                Iniciemos tu proceso para registrarte como usuario!
+              </h2>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="nombre" className="block text-sm font-medium text-gray-700">
@@ -155,7 +181,11 @@ export default function RegisterPage() {
                     className="absolute inset-y-0 right-0 pr-3 flex items-center"
                     onClick={() => setShowPassword(!showPassword)}
                   >
-                    <Eye className="h-5 w-5 text-gray-400" />
+                    {showPassword ? (
+                      <EyeOff className="h-5 w-5 text-gray-400" />
+                    ) : (
+                      <Eye className="h-5 w-5 text-gray-400" />
+                    )}
                   </button>
                 </div>
               </div>
@@ -187,13 +217,14 @@ export default function RegisterPage() {
 
             <div className="mt-6 text-center">
               <span className="text-sm text-gray-600">¿Ya tienes una cuenta? </span>
-              <Link href="/login" className="text-sm text-blue-600 hover:text-blue-500">
+              <Link href="/login" className="text-sm text-primary hover:text-primary/80 font-medium">
                 Ingresar
               </Link>
             </div>
           </div>
         </div>
       </div>
+      <MobileMenu />
       <WhatsAppButton />
     </div>
   )
