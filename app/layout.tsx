@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: "Beaver",
   description: "Professional services platform",
   generator: "v0.dev",
+  icons: [{ rel: "icon", url: "favicon.png" }, { rel: "icon", url: "favicon.png", media: "(prefers-color-scheme: light)" }, { rel: "icon", url: "favicon.png", media: "(prefers-color-scheme: dark)" }]
 }
 
 export default function RootLayout({
