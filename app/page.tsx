@@ -32,12 +32,12 @@ export default function Home() {
               <Link href="/proyectos" className="nav-link">
                 Proyectos
               </Link>
-              <Link href="/login" className="nav-button nav-button-primary">
+              {/* <Link href="/login" className="nav-button nav-button-primary">
                 Iniciar sesión
               </Link>
               <Link href="/registro" className="nav-button nav-button-secondary">
                 Registrarme
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>
@@ -63,9 +63,9 @@ export default function Home() {
                 Hacé crecer tu dinero invirtiendo en propiedades tokenizadas con retornos estables. Accedé desde tu
                 moneda local y diversificá sin complicaciones.
               </p>
-              <Link href="/registro" className="nav-button nav-button-primary text-lg">
+              {/* <Link href="/registro" className="nav-button nav-button-primary text-lg">
                 Comenzar ahora
-              </Link>
+              </Link> */}
             </div>
             <div className="relative h-[400px] md:h-[600px]">
               <Image

@@ -150,12 +150,12 @@ export default function ProjectsPage() {
               <Link href="/proyectos" className="nav-link">
                 Proyectos
               </Link>
-              <Link href="/login" className="nav-button nav-button-primary">
+              {/* <Link href="/login" className="nav-button nav-button-primary">
                 Iniciar sesión
               </Link>
               <Link href="/registro" className="nav-button nav-button-secondary">
                 Registrarme
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>

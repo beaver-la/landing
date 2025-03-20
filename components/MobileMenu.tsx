@@ -40,12 +40,12 @@ export default function MobileMenu() {
             <Link href="/proyectos" className="text-2xl font-medium text-primary" onClick={() => setIsOpen(false)}>
               Proyectos
             </Link>
-            <Link href="/login" className="text-2xl font-medium text-primary" onClick={() => setIsOpen(false)}>
+            {/* <Link href="/login" className="text-2xl font-medium text-primary" onClick={() => setIsOpen(false)}>
               Iniciar sesión
             </Link>
             <Link href="/registro" className="text-2xl font-medium text-primary" onClick={() => setIsOpen(false)}>
               Registrarme
-            </Link>
+            </Link> */}
           </nav>
         </div>
       )}
