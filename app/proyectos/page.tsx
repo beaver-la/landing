@@ -150,12 +150,12 @@ export default function ProjectsPage() {
               <Link href="/proyectos" className="nav-link">
                 Proyectos
               </Link>
-              {/* <Link href="/login" className="nav-button nav-button-primary">
+              <Link href="https://app.beaver.la/auth/login" className="nav-button nav-button-primary">
                 Iniciar sesión
               </Link>
-              <Link href="/registro" className="nav-button nav-button-secondary">
+              <Link href="https://app.beaver.la/auth/sign-up" className="nav-button nav-button-secondary">
                 Registrarme
-              </Link> */}
+              </Link>
             </div>
           </div>
         </div>
@@ -212,7 +212,7 @@ export default function ProjectsPage() {
             </div>
             <p className="mb-6 text-gray-600">Debe ser un usuario registrado para tener acceso a nuestros proyectos.</p>
             <Link
-              href="/registro"
+              href="https://app.beaver.la/auth/sign-up"
               className="block w-full text-center bg-primary text-white py-3 rounded-md font-medium hover:bg-primary/90 transition-colors"
             >
               ¡Quiero registrarme!

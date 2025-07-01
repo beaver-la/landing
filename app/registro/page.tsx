@@ -217,7 +217,7 @@ export default function RegisterPage() {
 
             <div className="mt-6 text-center">
               <span className="text-sm text-gray-600">¿Ya tienes una cuenta? </span>
-              <Link href="/login" className="text-sm text-primary hover:text-primary/80 font-medium">
+              <Link href="https://app.beaver.la/auth/login" className="text-sm text-primary hover:text-primary/80 font-medium">
                 Ingresar
               </Link>
             </div>
