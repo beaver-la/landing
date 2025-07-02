@@ -35,7 +35,7 @@ export default function Home() {
               <Link href="https://app.beaver.la/auth/login" className="nav-button nav-button-primary">
                 Iniciar sesión
               </Link>
-              <Link href="https://app.beaver.la/auth/sign-up" className="nav-button nav-button-secondary">
+              <Link href="https://app.beaver.la/auth/sign-up" className="nav-button nav-button-secondary" style={{ marginLeft: '8px' }}>
                 Registrarme
               </Link>
             </div>
