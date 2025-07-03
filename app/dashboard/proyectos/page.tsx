@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react"
 import { Search } from "lucide-react"
-import PropertyCard from "@/components/PropertyCard"
+import PropertyCard from "@/components/ProjectCard"
 
 const properties = [
   {

@@ -3,32 +3,19 @@
 import Image from "next/image"
 import { useState } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
+import { Project } from "@/app/proyectos/page";
+import { currencyFormat, formatProjectPrice, formatProjectTotalPrice } from "@/lib/utils";
+import ProjectKeyChip from "./ProjectKeyChip";
+import ProjectStatusChip from "./ProjectStatusChip";
 
-interface PropertyCardProps {
-  property: {
-    id: string
-    name: string
-    location: string
-    price: string
-    tokenPrice?: string
-    funded: number
-    target: number
-    totalReturn: number
-    annualReturn: number
-    status: "tokens" | "funded"
-    investmentPeriod?: string
-    rentStart: string
-  }
-  onInvestClick: () => void
+interface ProjectCardProps {
+  project: Project;
+  onInvestClick: () => void;
 }
 
-export default function PropertyCard({ property, onInvestClick }: PropertyCardProps) {
+export default function ProjectCard({ project, onInvestClick }: ProjectCardProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const images = [
-    "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Beaver_positivo_color-a02GIsj5SqKONhZEblyIhVvh3Ws07z.png",
-    "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Beaver_positivo_color-a02GIsj5SqKONhZEblyIhVvh3Ws07z.png",
-    "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Beaver_positivo_color-a02GIsj5SqKONhZEblyIhVvh3Ws07z.png",
-  ]
+  const images = project.images?.map((pi: any) => pi.file) ?? [];
 
   const changeImage = (direction: "prev" | "next") => {
     setCurrentImageIndex((prevIndex) => {
@@ -46,7 +33,7 @@ export default function PropertyCard({ property, onInvestClick }: PropertyCardPr
       <div className="relative h-48">
         <Image
           src={images[currentImageIndex] || "/placeholder.svg"}
-          alt={property.name}
+          alt={project.name}
           layout="fill"
           objectFit="contain"
           className="p-8 transition-opacity duration-300"
@@ -68,35 +55,16 @@ export default function PropertyCard({ property, onInvestClick }: PropertyCardPr
       {/* Property Details */}
       <div className="p-6 flex flex-col flex-grow">
         <div className="flex justify-between items-start mb-4">
-          <h3 className="text-2xl font-bold text-gray-900">{property.name}</h3>
+          <h3 className="text-2xl font-bold text-gray-900">{project.name}</h3>
           <span className="text-2xl font-bold text-primary">
-            {property.price.includes("€") ? "€" : "$"}
-            {property.price.replace(/[€$]/g, "")}
+            {formatProjectTotalPrice(project)}
           </span>
         </div>
 
         {/* Property ID Badge */}
-        <div className="flex items-center space-x-4 mb-6">
-          <div className="flex items-center space-x-2 bg-gray-100 px-3 py-1 rounded-full">
-            <span className="text-sm font-medium text-gray-600">{property.id}</span>
-            <div className="w-4 h-3">
-              {property.location === "US" ? (
-                <div className="w-4 h-3 bg-[#3c3b6e]" />
-              ) : (
-                <div className="w-4 h-3 bg-[#ffc400]" />
-              )}
-            </div>
-          </div>
-          {property.status === "tokens" && (
-            <div className="flex items-center space-x-2 bg-primary/10 px-3 py-1 rounded-full">
-              <span className="text-sm font-medium text-primary">Tokens en venta</span>
-            </div>
-          )}
-          {property.status === "funded" && (
-            <div className="flex items-center space-x-2 bg-primary/10 px-3 py-1 rounded-full">
-              <span className="text-sm font-medium text-primary">¡Financiado!</span>
-            </div>
-          )}
+        <div className="flex items-center justify-between space-x-4 mb-6">
+          <ProjectKeyChip project={project} size={"medium"} />
+          <ProjectStatusChip project={project} size={"medium"} />
         </div>
 
         {/* Investment Progress */}
@@ -106,48 +74,57 @@ export default function PropertyCard({ property, onInvestClick }: PropertyCardPr
         </div>
         <div className="flex justify-between text-sm mb-2">
           <span>
-            {property.funded.toLocaleString()} {property.price.includes("€") ? "€" : "$"}
+            {formatProjectPrice(project.funded ?? 0, project.currency ?? 'US$')}
           </span>
           <span>
-            {property.target.toLocaleString()} {property.price.includes("€") ? "€" : "$"}
+            {formatProjectTotalPrice(project)}
           </span>
         </div>
         <div className="w-full bg-gray-200 rounded-full h-2 mb-6">
           <div
             className="bg-primary rounded-full h-2"
-            style={{ width: `${(property.funded / property.target) * 100}%` }}
+            style={{ width: `${((project.funded ?? 0) / (project.total_price ?? 1)) * 100}%` }}
           />
         </div>
 
         {/* Investment Details */}
         <div className="space-y-3 flex-grow">
-          {property.tokenPrice && (
+          {project.token_price && (
             <div className="flex justify-between">
               <span className="text-gray-600">Precio del token</span>
               <span className="font-medium">
-                {property.tokenPrice.includes("€") ? "€" : "$"}
-                {property.tokenPrice.replace(/[€$]/g, "")}
+                {currencyFormat(project.token_price ?? 0, 'es-AR', { maximumFractionDigits: 0 })}
               </span>
             </div>
           )}
           <div className="flex justify-between">
             <span className="text-gray-600">Rentabilidad total estimada</span>
-            <span className="font-medium">{property.totalReturn} %</span>
+            <span className="font-medium">{project.total_interest_rate?.toLocaleString('es-AR')} %</span>
           </div>
           <div className="flex justify-between">
             <span className="text-gray-600">Rentabilidad anual estimada</span>
-            <span className="font-medium">{property.annualReturn} %</span>
+            <span className="font-medium">{project.anual_interest_rate?.toLocaleString('es-AR')} %</span>
           </div>
-          {property.investmentPeriod && (
+          {project.period && (
             <div className="flex justify-between">
               <span className="text-gray-600">Período de inversión</span>
-              <span className="font-medium">{property.investmentPeriod}</span>
+              <span className="font-medium">{project.period} meses</span>
             </div>
           )}
-          <div className="flex justify-between">
-            <span className="text-gray-600">Inicio renta</span>
-            <span className="font-medium">{property.rentStart.replace(/20(\d{2})/, "$1")}</span>
-          </div>
+          {project.start_date && (
+            <div className="flex justify-between">
+              <span className="text-gray-600">Inicio renta</span>
+              <span className="font-medium">
+                {
+                  new Date(project.start_date).toLocaleDateString('es-AR', {
+                      day: '2-digit',
+                      month: '2-digit',
+                      year: 'numeric'
+                    })
+                }
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Action Button */}
@@ -155,7 +132,7 @@ export default function PropertyCard({ property, onInvestClick }: PropertyCardPr
           className="w-full mt-6 bg-primary text-white py-3 rounded-md font-medium hover:bg-primary/90 transition-colors"
           onClick={onInvestClick}
         >
-          {property.status === "tokens" ? "Invertir" : "Ver más"}
+          {project.status === "open" ? "Invertir" : "Ver más"}
         </button>
       </div>
     </div>

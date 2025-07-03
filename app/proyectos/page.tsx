@@ -1,127 +1,116 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import React, { useState, useMemo } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Search, X } from "lucide-react"
-import PropertyCard from "@/components/PropertyCard"
+import ProjectCard from "@/components/ProjectCard"
 import WhatsAppButton from "@/components/WhatsAppButton"
+import axios from "axios"
 
-const properties = [
-  {
-    id: "HOU-3",
-    name: "Houston 3",
-    location: "US",
-    price: "222.300",
-    tokenPrice: "100",
-    funded: 141275.51,
-    target: 222300,
-    totalReturn: 62.1,
-    annualReturn: 8.57,
-    status: "tokens",
-    rentStart: "17/03/2023",
-  },
-  {
-    id: "MUR-1",
-    name: "Murcia 1",
-    location: "ES",
-    price: "1.527.800",
-    tokenPrice: "100",
-    funded: 844004.23,
-    target: 1527800,
-    totalReturn: 19.34,
-    annualReturn: 11.05,
-    status: "tokens",
-    rentStart: "01/06/2023",
-  },
-  {
-    id: "AZN-1",
-    name: "Arizona 1",
-    location: "US",
-    price: "110.000",
-    funded: 110000,
-    target: 110000,
-    investmentPeriod: "60 meses",
-    totalReturn: 72.3,
-    annualReturn: 9.68,
-    rentStart: "17/03/2023",
-    status: "funded",
-  },
-  {
-    id: "MIA-2",
-    name: "Miami 2",
-    location: "US",
-    price: "450.000",
-    tokenPrice: "150",
-    funded: 325000,
-    target: 450000,
-    totalReturn: 45.2,
-    annualReturn: 12.3,
-    status: "tokens",
-    rentStart: "01/07/2023",
-  },
-  {
-    id: "BCN-1",
-    name: "Barcelona 1",
-    location: "ES",
-    price: "890.000",
-    funded: 890000,
-    target: 890000,
-    investmentPeriod: "48 meses",
-    totalReturn: 55.4,
-    annualReturn: 13.85,
-    rentStart: "01/06/2023",
-    status: "funded",
-  },
-  {
-    id: "MAD-3",
-    name: "Madrid 3",
-    location: "ES",
-    price: "750.000",
-    tokenPrice: "75",
-    funded: 562500,
-    target: 750000,
-    totalReturn: 38.9,
-    annualReturn: 9.72,
-    status: "tokens",
-    rentStart: "15/08/2023",
-  },
-]
+export interface Project {
+  id?: number;
+  name: string;
+  key: string;
+  description?: string;
+  location?: {country_id: string};
+  total_price?: number;
+  currency?: string;
+  funded?: number;
+  token_price?: number;
+  anual_interest_rate?: number;
+  total_interest_rate?: number;
+  start_date?: string;
+  end_date?: string;
+  period?: number;
+  finalized_at?: string;
+  created_at?: string;
+
+  investment_type_id: string;
+
+  status: string;
+  images?: {id: string; order: number; file?: any;}[];
+}
+
+export type SortBy = 'recommended' | 'lowToHigh' | 'highToLow';
+
+const sortByOptions: { value: SortBy; label: string }[] = [
+  { value: 'recommended', label: 'Recommended' },
+  { value: 'lowToHigh', label: 'Returns Low-High' },
+  { value: 'highToLow', label: 'Returns High-Low' }
+];
+
+const PROJECT_STATUS_ORDER: any = {
+  open: 0,
+  in_exploitation: 1,
+  work_in_progress: 2,
+  financed: 3,
+  closed: 4,
+  pending: 5
+};
 
 export default function ProjectsPage() {
-  const [searchQuery, setSearchQuery] = useState("")
-  const [sortBy, setSortBy] = useState("Fecha")
-  const [showModal, setShowModal] = useState(false)
+  const [projects, setProjects] = React.useState<Project[]>([]);
+  const [filteredProjects, setFilteredProjects] = React.useState<Project[]>([]);
+  const [searchQuery, setSearchQuery] = React.useState<string | undefined>(undefined);
+  const [sortBy, setSortBy] = React.useState<'recommended' | 'lowToHigh' | 'highToLow'>('recommended');
 
-  const sortedProperties = useMemo(() => {
-    const sorted = [...properties]
-    switch (sortBy) {
-      case "Precio":
-        sorted.sort(
-          (a, b) => Number.parseFloat(b.price.replace(/[.,]/g, "")) - Number.parseFloat(a.price.replace(/[.,]/g, "")),
-        )
-        break
-      case "Rentabilidad":
-        sorted.sort((a, b) => b.annualReturn - a.annualReturn)
-        break
-      // For "Fecha" and "Mostrar todos", we'll keep the original order
-      default:
-        break
-    }
-    return sorted
-  }, [sortBy])
-
-  const filteredProperties = useMemo(() => {
-    return sortedProperties.filter(
-      (property) =>
-        property.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        property.id.toLowerCase().includes(searchQuery.toLowerCase()),
-    )
-  }, [sortedProperties, searchQuery])
+  const [showModal, setShowModal] = useState(false);
 
   const handleInvestClick = () => {
     setShowModal(true)
   }
+
+  const filterAndSortProjects = (projectsList: Project[], sort: any, text?: string) => {
+    let filteredAndSortedProjects = [...projectsList];
+    if (text) {
+      const regex = new RegExp(text, 'i');
+      filteredAndSortedProjects = projectsList.filter((p: Project) => (text ? regex.test(p.name) : true));
+    }
+
+    switch (sort) {
+      case 'recommended':
+        filteredAndSortedProjects = filteredAndSortedProjects.sort((a: Project, b: Project) => {
+          const statusA = PROJECT_STATUS_ORDER[a.status];
+          const statusB = PROJECT_STATUS_ORDER[b.status];
+
+          if (statusA !== statusB) {
+            return statusA - statusB; // menor valor va primero
+          }
+
+          // Si tienen el mismo status, ordenamos por interest_rate de mayor a menor
+          return (b.total_interest_rate ?? 0) - (a.total_interest_rate ?? 0);
+        });
+        break;
+      case 'lowToHigh':
+        filteredAndSortedProjects = filteredAndSortedProjects.sort(
+          (a: Project, b: Project) => (a.total_interest_rate ?? 0) - (b.total_interest_rate ?? 0)
+        );
+        break;
+      case 'highToLow':
+        filteredAndSortedProjects = filteredAndSortedProjects.sort(
+          (a: Project, b: Project) => (b.total_interest_rate ?? 0) - (a.total_interest_rate ?? 0)
+        );
+        break;
+    }
+
+    setFilteredProjects(filteredAndSortedProjects);
+  };
+
+  const getData = async () => {
+    const res = await axios.get('http://localhost/projects/all/');
+    const p = res.data?.filter((p: Project) => p.status !== 'pending');
+    setProjects(p);
+    return p;
+  } 
+
+  React.useEffect(() => {
+    getData();
+  }, []);
+
+  React.useEffect(() => {
+    filterAndSortProjects(projects, sortBy, searchQuery);
+  }, [projects, searchQuery, sortBy]);
 
   return (
     <div className="min-h-screen bg-[#F5F5F5]">
@@ -166,36 +155,33 @@ export default function ProjectsPage() {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 space-y-4 md:space-y-0">
           <h1 className="text-gray-500 text-sm">
-            Mostrando {filteredProperties.length} de {properties.length} inmuebles
+            Mostrando {filteredProjects.length} de {projects.length} inmuebles
           </h1>
-          <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+          <div className="flex flex-col md:flex-row space-y-8 md:space-y-0 md:space-x-8">
             <div className="relative">
               <input
                 type="text"
                 placeholder="Buscar"
-                className="w-full md:w-64 pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                className="w-full md:w-80 pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
               <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
             </div>
             <select
-              className="w-full md:w-40 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-white"
+              className="w-full md:w-64 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-white"
               value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
+              onChange={(e) => setSortBy(e.target.value as SortBy)}
             >
-              <option>Mostrar todos</option>
-              <option>Fecha</option>
-              <option>Precio</option>
-              <option>Rentabilidad</option>
+              {sortByOptions.map((sb: any) => (<option key={sb.value} id={sb.value} value={sb.value}>{sb.label}</option>))}
             </select>
           </div>
         </div>
 
-        {/* Property Grid */}
+        {/* Project Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProperties.map((property) => (
-            <PropertyCard key={property.id} property={property} onInvestClick={handleInvestClick} />
+          {filteredProjects.map((project: Project) => (
+            <ProjectCard key={project.id} project={project} onInvestClick={handleInvestClick} />
           ))}
         </div>
       </main>
