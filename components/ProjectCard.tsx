@@ -15,19 +15,19 @@ interface ProjectCardProps {
 
 export default function ProjectCard({ project, onInvestClick }: ProjectCardProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const images = project.images?.map((pi: any) => pi.file) ?? [];
+  const images = project?.images?.map((pi: any) => pi.file) ?? [];
 
   const changeImage = (direction: "prev" | "next") => {
     setCurrentImageIndex((prevIndex) => {
       if (direction === "prev") {
-        return prevIndex === 0 ? images.length - 1 : prevIndex - 1
+        return prevIndex === 0 ? images?.length - 1 : prevIndex - 1
       } else {
-        return (prevIndex + 1) % images.length
+        return (prevIndex + 1) % images?.length
       }
     })
   }
 
-  return (
+  return project ? (
     <div className="bg-white rounded-lg shadow-md overflow-hidden h-full flex flex-col">
       {/* Property Image */}
       <div className="relative h-48">
@@ -136,6 +136,6 @@ export default function ProjectCard({ project, onInvestClick }: ProjectCardProps
         </button>
       </div>
     </div>
-  )
+  ) : (<></>)
 }
 
