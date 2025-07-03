@@ -98,7 +98,7 @@ export default function ProjectsPage() {
   };
 
   const getData = async () => {
-    const res = await axios.get('http://localhost/projects/all/');
+    const res = await axios.get('https://api.beaver.la/projects/all/');
     const p = res.data?.filter((p: Project) => p.status !== 'pending');
     setProjects(p);
     return p;
