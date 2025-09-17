@@ -16,6 +16,7 @@ interface ProjectCardProps {
 export default function ProjectCard({ project, onInvestClick }: ProjectCardProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const images = project?.images?.map((pi: any) => pi.file) ?? [];
+  if (images.length === 0) images.push('header-image.png');
 
   const changeImage = (direction: "prev" | "next") => {
     setCurrentImageIndex((prevIndex) => {
