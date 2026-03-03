@@ -114,42 +114,6 @@ export default function ProjectsPage() {
 
   return (
     <div className="min-h-screen bg-[#F5F5F5]">
-      {/* Navigation */}
-      <nav className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center">
-              <Link href="/">
-                <Image
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Beaver_positivo_color-a02GIsj5SqKONhZEblyIhVvh3Ws07z.png"
-                  alt="Beaver Logo"
-                  width={82}
-                  height={82}
-                  className="h-20 w-auto"
-                />
-              </Link>
-            </div>
-            <div className="hidden md:flex items-center space-x-8">
-              <Link href="/" className="nav-link">
-                Inicio
-              </Link>
-              <Link href="/como-funciona" className="nav-link">
-                Cómo funciona
-              </Link>
-              <Link href="/proyectos" className="nav-link">
-                Proyectos
-              </Link>
-              <Link href="https://app.beaver.la/auth/login" className="nav-button nav-button-primary">
-                Iniciar sesión
-              </Link>
-              <Link href="https://app.beaver.la/auth/sign-up" className="nav-button nav-button-secondary" style={{ marginLeft: '8px' }}>
-                Registrarme
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
-
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}

@@ -1,0 +1,714 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header */
+header {
+    background-color: #f0f4f7;
+    padding: 20px 0;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+}
+
+.logo img {
+    height: 50px;
+}
+
+nav {
+    margin-left: auto;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 24px;
+    align-items: center;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #999;
+    font-size: 16px;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+nav ul li a.active {
+    color: #008883;
+}
+
+nav ul li a:hover {
+    color: #008883;
+}
+
+.header-buttons {
+    display: flex;
+    gap: 24px;
+}
+
+.btn-login {
+    background-color: #008883;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-login:hover {
+    background-color: #006661;
+}
+
+.btn-register {
+    background-color: #999;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-register:hover {
+    background-color: #777;
+}
+
+/* Banner */
+.banner {
+    background-color: #e6e6e6;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    min-height: 550px;
+}
+
+.banner::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    right: -5%;
+    bottom: -10%;
+    width: 60%;
+    background-image: url('/img/tr.svg');
+    background-repeat: no-repeat;
+    background-position: center right;
+    background-size: cover;
+    z-index: 0;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Limitar ancho del fondo en pantallas ultra-anchas */
+@media (min-aspect-ratio: 21/9) {
+    .banner::before {
+        width: 50%;
+        max-width: 1000px;
+    }
+}
+
+.banner .container {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+}
+
+.banner-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 60px;
+    min-height: 550px;
+    max-height: 550px;
+    height: 550px;
+}
+
+.banner-text {
+    flex: 0 0 50%;
+    max-width: 500px;
+    padding: 80px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: transparent;
+}
+
+.banner-text h1 {
+    color: #003D3A;
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.banner-text p {
+    color: #003D3A;
+    font-size: 16px;
+    line-height: 1.6;
+    opacity: 0.8;
+    margin-bottom: 30px;
+}
+
+.btn-banner {
+    background-color: #003D3A;
+    color: white;
+    border: none;
+    padding: 15px 35px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    align-self: flex-start;
+}
+
+.btn-banner:hover {
+    background-color: #002a27;
+}
+
+.banner-image {
+    flex: 0 0 50%;
+    max-width: none;
+    display: flex;
+    flex-direction: column;
+    padding-top: 12px;
+    overflow: visible;
+}
+
+.banner-image img {
+    width: auto;
+    min-width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: left bottom;
+    display: block;
+    opacity: 0;
+    transform: translateX(30px);
+}
+
+.banner-image img.loaded {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+/* Mobile elements - ocultos en desktop */
+.mobile-logo {
+    display: none;
+}
+
+.burger-menu {
+    display: none;
+}
+
+/* Investment Types Section */
+.investment-types {
+    background-color: #003D3A;
+    padding: 150px 0;
+}
+
+.investment-types-content {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+
+.investment-types-title {
+    color: white;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+    flex: 0 0 auto;
+}
+
+.investment-cards {
+    display: flex;
+    gap: 40px;
+    flex: 1;
+    justify-content: space-around;
+}
+
+.investment-card {
+    text-align: left;
+    max-width: 200px;
+}
+
+.investment-card .material-icons {
+    font-size: 41px;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.investment-card h3 {
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+}
+
+.investment-card .card-description {
+    color: white;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 16px;
+    opacity: 0.9;
+}
+
+.investment-card .card-term {
+    color: white;
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+/* Process Steps Section */
+.process-steps {
+    background-color: #008883;
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.process-steps::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    right: -5%;
+    bottom: -10%;
+    width: 60%;
+    background-image: url('/img/tr2.svg');
+    background-repeat: no-repeat;
+    background-position: center right;
+    background-size: cover;
+    z-index: 0;
+    opacity: 0.4;
+}
+
+.process-steps .container {
+    position: relative;
+    z-index: 1;
+}
+
+.process-steps-content {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+
+.process-steps-title {
+    color: white;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+    flex: 0 0 auto;
+}
+
+.process-cards {
+    display: flex;
+    gap: 30px;
+    flex: 1;
+    justify-content: space-around;
+}
+
+.process-card {
+    background: transparent;
+    border-radius: 12px;
+    overflow: hidden;
+    max-width: 220px;
+}
+
+.process-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.process-cta {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.btn-process {
+    background-color: white;
+    color: #008883;
+    border: none;
+    padding: 15px 35px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-process:hover {
+    background-color: #f0f0f0;
+}
+
+/* Community Section */
+.community {
+    background-color: #e6e6e6;
+    padding: 88px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.community::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    left: -5%;
+    bottom: -10%;
+    width: 60%;
+    background-image: url('/img/tr2.svg');
+    background-repeat: no-repeat;
+    background-position: center left;
+    background-size: cover;
+    z-index: 0;
+    opacity: 0.1;
+}
+
+.community .container {
+    position: relative;
+    z-index: 1;
+}
+
+.community-content {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+}
+
+.community-image {
+    flex: 0 0 22%;
+    max-width: 224px;
+}
+
+.community-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.community-text {
+    flex: 1;
+}
+
+.community-text h2 {
+    color: #003D3A;
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.community-text p {
+    color: #003D3A;
+    font-size: 16px;
+    line-height: 1.6;
+    opacity: 0.8;
+    margin-bottom: 30px;
+}
+
+.social-icons {
+    display: flex;
+    gap: 25px;
+}
+
+.social-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    transition: transform 0.3s;
+}
+
+.social-icons a:hover {
+    transform: scale(1.1);
+}
+
+.social-icons a img {
+    width: 32px;
+    height: 32px;
+    filter: invert(27%) sepia(89%) saturate(1029%) hue-rotate(152deg) brightness(92%) contrast(101%);
+}
+
+/* WhatsApp Floating Button */
+.whatsapp-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background-color: #008883;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.8);
+    transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+}
+
+.whatsapp-float.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.whatsapp-float img {
+    width: 32px;
+    height: 32px;
+    filter: brightness(0) invert(1);
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+    /* Ocultar header desktop */
+    header {
+        display: none;
+    }
+
+    /* Logo móvil - NO fijo, fluye con el contenido */
+    .mobile-logo {
+        display: block;
+        padding: 15px 20px 15px 0px;
+        background-color: #e6e6e6;
+    }
+
+    .mobile-logo img {
+        height: 50px;
+    }
+
+    /* Burger menu - FIJO flotante */
+    .burger-menu {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        position: fixed;
+        top: 15px;
+        right: 20px;
+        background-color: #e6e6e6;
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+        border-radius: 5px;
+        z-index: 1000;
+    }
+
+    .burger-menu span {
+        display: block;
+        width: 28px;
+        height: 3px;
+        background-color: #003D3A;
+        border-radius: 2px;
+    }
+
+    /* Banner responsive */
+    .banner {
+        min-height: auto;
+        padding-top: 0;
+    }
+
+    .banner::before {
+        top: 40%;
+        bottom: -20%;
+        right: 0;
+        left: -10%;
+        width: 120%;
+        background-position: top right;
+        background-size: contain;
+        z-index: 1;
+    }
+
+    .banner-content {
+        flex-direction: column;
+        min-height: auto;
+        max-height: none;
+        height: auto;
+        gap: 0;
+    }
+
+    .banner-text {
+        flex: none;
+        max-width: 100%;
+        padding: 30px 10%;
+        order: 1;
+    }
+
+    .banner-text h1 {
+        font-size: 28px;
+    }
+
+    .banner-text p {
+        font-size: 14px;
+    }
+
+    .btn-banner {
+        display: inline-block;
+        padding: 12px 30px;
+        font-size: 14px;
+    }
+
+    .banner-image {
+        flex: none;
+        order: 2;
+        padding-top: 0;
+        width: 100%;
+    }
+
+    .banner-image img {
+        width: 100%;
+        height: auto;
+        min-width: auto;
+        object-fit: cover;
+        object-position: center top;
+    }
+
+    /* Investment Types responsive */
+    .investment-types {
+        padding: 100px 0;
+    }
+
+    .investment-types-content {
+        flex-direction: column;
+        gap: 80px;
+        text-align: center;
+    }
+
+    .investment-types-title {
+        font-size: 28px;
+    }
+
+    .investment-cards {
+        flex-direction: column;
+        gap: 60px;
+        align-items: center;
+    }
+
+    .investment-card {
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .investment-card .material-icons {
+        margin: 0 auto 20px;
+    }
+
+    /* Process Steps responsive */
+    .process-steps {
+        padding: 100px 0;
+    }
+
+    .process-steps::before {
+        top: 40%;
+        bottom: -20%;
+        right: 0;
+        left: -10%;
+        width: 120%;
+        background-position: top right;
+        background-size: contain;
+    }
+
+    .process-steps-content {
+        flex-direction: column;
+        gap: 80px;
+        text-align: center;
+    }
+
+    .process-steps-title {
+        font-size: 28px;
+    }
+
+    .process-cards {
+        flex-direction: column;
+        gap: 30px;
+        align-items: center;
+    }
+
+    .process-card {
+        max-width: 280px;
+    }
+
+    /* Community responsive */
+    .community {
+        padding: 60px 0;
+    }
+
+    .community::before {
+        top: 0;
+        bottom: 0;
+        left: -20%;
+        width: 140%;
+        background-position: center;
+        background-size: contain;
+    }
+
+    .community-content {
+        flex-direction: column;
+        gap: 40px;
+        text-align: center;
+    }
+
+    .community-image {
+        flex: none;
+        max-width: 180px;
+        margin: 0 auto;
+    }
+
+    .community-text h2 {
+        font-size: 28px;
+    }
+
+    .community-text p {
+        font-size: 14px;
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+}
+
+/* Footer */
+footer {
+    background-color: #0e1615;
+    padding: 20px 0;
+    text-align: center;
+}
+
+footer a {
+    color: #003d3a;
+    text-decoration: none;
+    font-size: 14px;
+    transition: opacity 0.3s;
+}
+
+footer a:hover {
+    opacity: 0.7;
+}
