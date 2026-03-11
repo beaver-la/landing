@@ -209,6 +209,123 @@ nav ul li a:hover {
     transition: opacity 1s ease, transform 1s ease;
 }
 
+/* Cómo funciona */
+.como-funciona-banner {
+    background-color: #003D3A;
+}
+
+.como-funciona-banner .banner-text h1,
+.como-funciona-banner .banner-text p,
+.como-funciona-banner .como-funciona-kicker {
+    color: #ffffff;
+}
+
+.como-funciona-banner .banner-text p {
+    opacity: 0.85;
+}
+
+.como-funciona-banner .banner-text {
+    max-width: 560px;
+}
+
+.como-funciona-kicker {
+    color: #003D3A;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    opacity: 0.9;
+}
+
+.como-funciona-content {
+    background-color: #f0f4f7;
+    padding: 80px 0;
+}
+
+.como-funciona-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: stretch;
+}
+
+.como-funciona-card {
+    padding: 48px;
+    border-radius: 4px;
+}
+
+.como-funciona-icon {
+    display: inline-block;
+    font-size: 59px !important;
+    margin-bottom: 14px;
+    color: #003D3A;
+}
+
+.como-funciona-card h2 {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 18px;
+}
+
+.como-funciona-card p {
+    font-size: 16px;
+    line-height: 1.6;
+    opacity: 0.85;
+}
+
+.como-funciona-card--light {
+    background-color: transparent;
+}
+
+.como-funciona-card--dark {
+    background-color: #003D3A;
+}
+
+.como-funciona-card--dark .como-funciona-icon {
+    color: #ffffff;
+}
+
+.como-funciona-card--dark h2,
+.como-funciona-card--dark p {
+    color: #ffffff;
+    opacity: 1;
+}
+
+.como-funciona-cta {
+    background-color: #f0f4f7;
+    padding: 35px 0 80px;
+}
+
+.como-funciona-cta-inner {
+    background-color: #008883;
+    color: #ffffff;
+    padding: 60px;
+    border-radius: 4px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.como-funciona-cta-inner h2 {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.como-funciona-cta-icon {
+    display: inline-block;
+    font-size: 59px;
+    margin-bottom: 14px;
+    color: #ffffff;
+}
+
+.como-funciona-cta-inner p {
+    font-size: 16px;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
 /* Mobile elements - ocultos en desktop */
 .mobile-logo {
     display: none;
@@ -498,7 +615,7 @@ nav ul li a:hover {
     /* Logo móvil - NO fijo, fluye con el contenido */
     .mobile-logo {
         display: block;
-        padding: 15px 20px 15px 0px;
+        padding: 15px 20px 15px 40px;
         background-color: #e6e6e6;
     }
 
@@ -589,6 +706,26 @@ nav ul li a:hover {
         min-width: auto;
         object-fit: cover;
         object-position: center top;
+    }
+
+    /* Cómo funciona responsive */
+    .como-funciona-content {
+        padding: 60px 0;
+    }
+
+    .como-funciona-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .como-funciona-card {
+        padding: 28px;
+    }
+
+    .como-funciona-cta-inner {
+        grid-template-columns: 1fr;
+        padding: 32px;
+        gap: 24px;
     }
 
     /* Investment Types responsive */
